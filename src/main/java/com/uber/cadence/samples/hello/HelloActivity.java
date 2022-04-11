@@ -73,7 +73,7 @@ public class HelloActivity {
 
   public static void main(String[] args) {
     // Start a worker that hosts both workflow and activity implementations.
-    Worker.Factory factory = new Worker.Factory(DOMAIN);
+    Worker.Factory factory = new Worker.Factory("scpdev-cadence-front.foresee.com", 7933, DOMAIN);
     Worker worker = factory.newWorker(TASK_LIST);
     // Workflows are stateful. So you need a type to create instances.
     worker.registerWorkflowImplementationTypes(GreetingWorkflowImpl.class);
@@ -83,7 +83,8 @@ public class HelloActivity {
     factory.start();
 
     // Start a workflow execution. Usually this is done from another program.
-    WorkflowClient workflowClient = WorkflowClient.newInstance(DOMAIN);
+    WorkflowClient workflowClient =
+        WorkflowClient.newInstance("scpdev-cadence-front.foresee.com", 7933, DOMAIN);
     // Get a workflow stub using the same task list the worker uses.
     GreetingWorkflow workflow = workflowClient.newWorkflowStub(GreetingWorkflow.class);
     // Execute a workflow waiting for it to complete.

@@ -58,3 +58,15 @@ task execute(type: JavaExec) {
 license {
     header rootProject.file('license-header.txt')
 }
+task writeNewPom << {
+    pom {
+        project {
+            inceptionYear '2022'
+            properties {
+                java.version 1.8
+                maven.compiler.target 1.8
+                maven.compiler.source 1.8
+            }
+        }
+    }.writeTo("pom.xml")
+}

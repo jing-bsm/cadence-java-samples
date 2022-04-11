@@ -47,8 +47,8 @@ public class ManualStarter {
     workflowExecution.setWorkflowId(randomWorkflowId);
 
     ActivityCompletionClient completionClient = workflowClient.newActivityCompletionClient();
-    //Bug in Cadence - https://github.com/uber/cadence-java-client/issues/419
-    //We cannot hardcode Activity Ids like - "0" its not deterministic
+    // Bug in Cadence - https://github.com/uber/cadence-java-client/issues/419
+    // We cannot hardcode Activity Ids like - "0" its not deterministic
     completionClient.complete(workflowExecution, "0", " completedManualTask() ");
   }
 }

@@ -17,6 +17,7 @@
 
 package com.uber.cadence.samples.hello;
 
+import static com.uber.cadence.samples.common.Env.HOST;
 import static com.uber.cadence.samples.common.SampleConstants.DOMAIN;
 
 import com.uber.cadence.activity.ActivityMethod;
@@ -30,7 +31,6 @@ import com.uber.cadence.workflow.WorkflowMethod;
  * Cadence service to be running.
  */
 public class HelloActivity {
-
   static final String TASK_LIST = "HelloActivity";
 
   /** Workflow interface has to have at least one method annotated with @WorkflowMethod. */
@@ -73,7 +73,7 @@ public class HelloActivity {
 
   public static void main(String[] args) {
     // Start a worker that hosts both workflow and activity implementations.
-    Worker.Factory factory = new Worker.Factory("scpdev-cadence-front.foresee.com", 7933, DOMAIN);
+    Worker.Factory factory = new Worker.Factory(HOST, 7933, DOMAIN);
     Worker worker = factory.newWorker(TASK_LIST);
     // Workflows are stateful. So you need a type to create instances.
     worker.registerWorkflowImplementationTypes(GreetingWorkflowImpl.class);
@@ -83,8 +83,7 @@ public class HelloActivity {
     factory.start();
 
     // Start a workflow execution. Usually this is done from another program.
-    WorkflowClient workflowClient =
-        WorkflowClient.newInstance("scpdev-cadence-front.foresee.com", 7933, DOMAIN);
+    WorkflowClient workflowClient = WorkflowClient.newInstance(HOST, 7933, DOMAIN);
     // Get a workflow stub using the same task list the worker uses.
     GreetingWorkflow workflow = workflowClient.newWorkflowStub(GreetingWorkflow.class);
     // Execute a workflow waiting for it to complete.

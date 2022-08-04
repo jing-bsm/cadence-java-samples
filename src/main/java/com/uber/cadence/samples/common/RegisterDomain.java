@@ -34,7 +34,7 @@ import org.apache.thrift.TException;
 public class RegisterDomain {
 
   public static void main(String[] args) throws TException, IOException {
-    IWorkflowService cadenceService = new WorkflowServiceTChannel();
+    IWorkflowService cadenceService = new WorkflowServiceTChannel(Env.HOST, 7933);
     RegisterDomainRequest request = new RegisterDomainRequest();
     request.setDescription("Java Samples");
     request.setEmitMetric(false);
